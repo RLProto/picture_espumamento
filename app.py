@@ -4,10 +4,11 @@ import cv2
 import logging
 from threading import Timer
 
-ENABLE_DUMP = os.getenv("ENABLE_DUMP",True)
+ENABLE_DUMP = os.getenv("ENABLE_DUMP", True)
 CAMERA_INDEX = int(os.getenv('CAMERA_INDEX', 0))
 EQUIPMENT = os.getenv('EQUIPMENT', 'espumamento')
 INTERVAL = int(os.getenv('INTERVAL', 300))
+CODEC = os.getenv('CODEC', 'MJPG')  # Default to MJPG, can set to 'H264' via environment
 
 # Define a custom logging level
 IMPORTANT = 25
@@ -31,11 +32,15 @@ def ensure_directory(path):
         os.makedirs(path)
 
 def initialize_camera(camera_index=0):
+    # Set the codec based on environment variable
+    fourcc = cv2.VideoWriter_fourcc(*CODEC)
     cap = cv2.VideoCapture(camera_index, cv2.CAP_V4L2)
+    cap.set(cv2.CAP_PROP_FOURCC, fourcc)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    
     if not cap.isOpened():
-        logging.error(f"Failed to open video device {camera_index}.")
+        logging.error(f"Failed to open video device {camera_index} with codec {CODEC}.")
         return None
     return cap
 

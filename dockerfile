@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libopencv-dev \
     python3-opencv \
     curl \
+    v4l-utils \
     #libxml2-dev \
     #libxslt-dev \
     #libffi-dev \
