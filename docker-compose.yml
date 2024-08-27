@@ -1,0 +1,19 @@
+version: '3'
+services:
+  espumamento:
+    container_name: espumamento
+    image: rlproto/picture_espumamento:picture_espumamento-v1.0 
+    network_mode: bridge
+    devices:
+      - "/dev/video0:/dev/video0"
+    restart: unless-stopped
+    volumes:
+      - /var/lib/docker/volumes/espumamento:/app/data
+    environment:
+      CAMERA_INDEX: "0"
+      EQUIPMENT: "espumamento"
+      ENABLE_DUMP: True
+
+    command: ["python", "app.py"]
+volumes:
+  cozinhador:
