@@ -13,7 +13,8 @@ services:
       CAMERA_INDEX: "0"
       EQUIPMENT: "espumamento"
       ENABLE_DUMP: True
+      INTERVAL: "300"
 
     command: ["python", "app.py"]
 volumes:
-  cozinhador:
+  espumamento:

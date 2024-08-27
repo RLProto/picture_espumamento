@@ -7,6 +7,7 @@ from threading import Timer
 ENABLE_DUMP = os.getenv("ENABLE_DUMP",True)
 CAMERA_INDEX = int(os.getenv('CAMERA_INDEX', 0))
 EQUIPMENT = os.getenv('EQUIPMENT', 'espumamento')
+INTERVAL = os.getenv('INTERVAL', 300)
 
 # Define a custom logging level
 IMPORTANT = 25
@@ -24,7 +25,6 @@ logging.basicConfig(level=IMPORTANT, format='%(asctime)s - %(levelname)s - %(mes
 
 # Base directory to save images
 BASE_IMAGE_SAVE_PATH = './data'
-INTERVAL = 300  # 5 minutes in seconds
 
 def ensure_directory(path):
     if not os.path.exists(path):
